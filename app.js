@@ -56,11 +56,11 @@ function createResetButton() {
 function createPlayers() {
     // create player 1
     player1 = {
-        x:50, y:(canvas.height/2)-50, speed: 5, width: 35, height: 100, score: 0
+        x:50, y:(canvas.height/2)-50, speed: 6, width: 35, height: 100, score: 0
     };
     // create player 2
     player2 = {
-        x:500, y:(canvas.height/2)-50, speed: 5, width: 35, height: 100, score: 0
+        x:500, y:(canvas.height/2)-50, speed: 6, width: 35, height: 100, score: 0
     };    
 }
 
@@ -111,12 +111,37 @@ function keyUp(event) {
     }
 }
 
-// reset ball when ball goes out of bounds
+// reset ball when ball goes out of boundsw
 function ballReset() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.xs = ballSpeed;
-    ball.ys = -ballSpeed;
+    setRandomBallSpeed();
+}
+
+function setRandomBallSpeed() {
+    let direction = getRandomDirection();
+    switch(direction) {
+        case 0: // up right
+            ball.xs = ballSpeed;
+            ball.ys = -ballSpeed;
+            break;
+        case 1: // down left
+            ball.xs = -ballSpeed;
+            ball.ys = ballSpeed;
+            break;
+        case 2: // down right
+            ball.xs = ballSpeed;
+            ball.ys = ballSpeed;
+            break;    
+        case 3: // up left
+            ball.xs = -ballSpeed;
+            ball.ys = -ballSpeed;
+            break;    
+    }
+}
+
+function getRandomDirection() {
+    return Math.floor(Math.random() * 4);
 }
 
 // update game world for player 1, player 2, and ball
