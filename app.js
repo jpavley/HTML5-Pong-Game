@@ -35,13 +35,13 @@ const player2 = {
 };
 
 // set ball speed
-let speed = 3;
+let ballSpeed = 3;
 
 // create ball
 const ball = {
     x: canvas.width / 2, y: canvas.height / 2, 
     width: 10, height: 10,
-    xs: speed, ys: -speed
+    xs: ballSpeed, ys: -ballSpeed
 };
 
 // create key bindings for player 1
@@ -88,8 +88,8 @@ function keyUp(event) {
 function ballReset() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.xs = speed;
-    ball.ys = -speed;
+    ball.xs = ballSpeed;
+    ball.ys = -ballSpeed;
 }
 
 // update game world for player 1, player 2, and ball
@@ -150,9 +150,9 @@ function move() {
         let playerOriginY = (player1.y + player1.height) / 2;
         let ballOriginY = (ball.y + ball.height) / 2;
         if(playerOriginY < ballOriginY) {
-            ball.ys = speed;
+            ball.ys = ballSpeed;
         } else {
-            ball.ys = -speed;
+            ball.ys = -ballSpeed;
         }
     }
 
@@ -162,9 +162,9 @@ function move() {
         let playerOriginY = (player2.y + player2.height) / 2;
         let ballOriginY = (ball.y + ball.height) / 2;
         if(playerOriginY < ballOriginY) {
-            ball.ys = speed;
+            ball.ys = ballSpeed;
         } else {
-            ball.ys = -speed;
+            ball.ys = -ballSpeed;
         }
     }    
 }
