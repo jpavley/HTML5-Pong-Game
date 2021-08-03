@@ -178,7 +178,7 @@ function checkCol(obj1, obj2) {
     (obj1.y + obj1.height) > obj2.y;
     
     if(hit) {
-        console.log(hit);
+        //console.log(hit);
     }
 
     return hit
