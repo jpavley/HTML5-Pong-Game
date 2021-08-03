@@ -45,7 +45,7 @@ const ball = {
 };
 
 // create key bindings for player 1
-const keyz1 = {
+const player1Keys = {
     ArrowRight:false, ArrowLeft:false, ArrowUp:false, ArrowDown: false
 };
 
@@ -64,8 +64,8 @@ document.addEventListener('keyup', keyUp);
 // track key down events
 function keyDown(event) {
 
-    if(event.code in keyz1) {
-        keyz1[event.code] = true;
+    if(event.code in player1Keys) {
+        player1Keys[event.code] = true;
     }
 
     if(event.code in keyz2) {
@@ -75,8 +75,8 @@ function keyDown(event) {
 
 // track key up events
 function keyUp(event) {
-    if(event.code in keyz1) {
-        keyz1[event.code] = false;
+    if(event.code in player1Keys) {
+        player1Keys[event.code] = false;
     }
 
     if(event.code in keyz2) {
@@ -95,14 +95,14 @@ function ballReset() {
 // update game world for player 1, player 2, and ball
 function move() {
     // update player 1 (Arrow keys)
-    if(keyz1.ArrowRight && player1.x < canvas.width/2 - player1.width) {
+    if(player1Keys.ArrowRight && player1.x < canvas.width/2 - player1.width) {
         player1.x += player1.speed;
-    } else if(keyz1.ArrowLeft && player1.x > 0) {
+    } else if(player1Keys.ArrowLeft && player1.x > 0) {
         player1.x -= player1.speed;
     }
-    if(keyz1.ArrowUp) {
+    if(player1Keys.ArrowUp) {
         player1.y -= player1.speed;
-    } else if(keyz1.ArrowDown) {
+    } else if(player1Keys.ArrowDown) {
         player1.y += player1.speed;
     }
 
