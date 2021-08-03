@@ -44,9 +44,9 @@ function createResetButton() {
         player2.score = 0;
         ballReset();
         player1.x = 50;
-        player1.y = 50;
+        player1.y = (canvas.height/2)-50;
         player2.x = 500;
-        player2.y = 50;
+        player2.y = (canvas.height/2)-50;
     });
     document.body.append(div);
     div.append(btn);    
@@ -56,11 +56,11 @@ function createResetButton() {
 function createPlayers() {
     // create player 1
     player1 = {
-        x:50, y:50, speed: 5, width: 35, height: 100, score: 0
+        x:50, y:(canvas.height/2)-50, speed: 5, width: 35, height: 100, score: 0
     };
     // create player 2
     player2 = {
-        x:500, y:50, speed: 5, width: 35, height: 100, score: 0
+        x:500, y:(canvas.height/2)-50, speed: 5, width: 35, height: 100, score: 0
     };    
 }
 
