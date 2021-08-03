@@ -3,7 +3,7 @@
 // Based on tutorials by Laurence Svekis
 // MIT License
 
-// declar variables
+// declare variables
 let canvas;
 let ctx;
 let player1;
