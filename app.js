@@ -127,9 +127,9 @@ function move() {
     } else if(player1Keys.KeyA && player1.x > 0) {
         player1.x -= player1.speed;
     }
-    if(player1Keys.KeyW) {
+    if(player1Keys.KeyW && player1.y > 0) {
         player1.y -= player1.speed;
-    } else if(player1Keys.KeyS) {
+    } else if(player1Keys.KeyS && player1.y < canvas.height - player1.height) {
         player1.y += player1.speed;
     }
 
@@ -138,9 +138,9 @@ function move() {
     } else if(player2Keys.ArrowLeft && player2.x > canvas.width/2) {
         player2.x -= player2.speed;
     }
-    if(player2Keys.ArrowUp) {
+    if(player2Keys.ArrowUp && player2.y > 0) {
         player2.y -= player2.speed;
-    } else if(player2Keys.ArrowDown) {
+    } else if(player2Keys.ArrowDown && player2.y < canvas.height - player2.height) {
         player2.y += player2.speed;
     }
 
