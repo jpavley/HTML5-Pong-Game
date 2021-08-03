@@ -15,12 +15,27 @@ let player2Keys;
 
 initGame();
 
+// initalize all the game vars
 function initGame() {
     // create reference to canvas context for drawing
     canvas = document.querySelector('#myCanvas');
     ctx = canvas.getContext('2d');
 
-    // create a reset button to restart the game
+    createResetButton();
+    createPlayers();
+    createBall();
+    createKeyBindings();
+
+    // start animation
+    requestAnimationFrame(draw);
+
+    // add event listeners for keys
+    document.addEventListener('keydown', keyDown);
+    document.addEventListener('keyup', keyUp);
+}
+
+// create a reset button to restart the game
+function createResetButton() {
     const btn = document.createElement('button');
     const div = document.createElement('div');
     btn.textContent = "Game Reset";
@@ -34,18 +49,21 @@ function initGame() {
         player2.y = 50;
     });
     document.body.append(div);
-    div.append(btn);
+    div.append(btn);    
+}
 
+function createPlayers() {
     // create player 1
     player1 = {
         x:50, y:50, speed: 5, width: 35, height: 100, score: 0
     };
-
     // create player 2
     player2 = {
         x:500, y:50, speed: 5, width: 35, height: 100, score: 0
-    };
+    };    
+}
 
+function createBall() {
     // set ball speed
     ballSpeed = 3;
 
@@ -55,7 +73,9 @@ function initGame() {
         width: 10, height: 10,
         xs: ballSpeed, ys: -ballSpeed
     };
+}
 
+function createKeyBindings() {
     // create key bindings for player 1
     player1Keys = {
         ArrowRight:false, ArrowLeft:false, ArrowUp:false, ArrowDown: false
@@ -64,14 +84,7 @@ function initGame() {
     // create key bindings for player 2
     player2Keys = {
         KeyD:false, KeyA:false, KeyW:false, KeyS: false
-    };
-
-    // start animation
-    requestAnimationFrame(draw);
-
-    // add event listeners for keys
-    document.addEventListener('keydown', keyDown);
-    document.addEventListener('keyup', keyUp);
+    };    
 }
 
 // track key down events
