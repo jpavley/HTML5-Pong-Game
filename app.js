@@ -50,7 +50,7 @@ const player1Keys = {
 };
 
 // create key bindings for player 2
-const keyz2 = {
+const player2Keys = {
     KeyD:false, KeyA:false, KeyW:false, KeyS: false
 };
 
@@ -68,8 +68,8 @@ function keyDown(event) {
         player1Keys[event.code] = true;
     }
 
-    if(event.code in keyz2) {
-        keyz2[event.code] = true;
+    if(event.code in player2Keys) {
+        player2Keys[event.code] = true;
     }
 }
 
@@ -79,8 +79,8 @@ function keyUp(event) {
         player1Keys[event.code] = false;
     }
 
-    if(event.code in keyz2) {
-        keyz2[event.code] = false;
+    if(event.code in player2Keys) {
+        player2Keys[event.code] = false;
     }
 }
 
@@ -107,14 +107,14 @@ function move() {
     }
 
     // update player 2 (WASD keys)
-    if(keyz2.KeyD && player2.x < canvas.width - player2.width) {
+    if(player2Keys.KeyD && player2.x < canvas.width - player2.width) {
         player2.x += player2.speed;
-    } else if(keyz2.KeyA && player2.x > canvas.width/2) {
+    } else if(player2Keys.KeyA && player2.x > canvas.width/2) {
         player2.x -= player2.speed;
     }
-    if(keyz2.KeyW) {
+    if(player2Keys.KeyW) {
         player2.y -= player2.speed;
-    } else if(keyz2.KeyS) {
+    } else if(player2Keys.KeyS) {
         player2.y += player2.speed;
     }
 
