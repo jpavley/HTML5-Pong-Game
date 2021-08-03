@@ -52,6 +52,7 @@ function createResetButton() {
     div.append(btn);    
 }
 
+// create player paddles
 function createPlayers() {
     // create player 1
     player1 = {
@@ -63,6 +64,7 @@ function createPlayers() {
     };    
 }
 
+// create ball to bounce between paddles
 function createBall() {
     // set ball speed
     ballSpeed = 3;
@@ -75,6 +77,7 @@ function createBall() {
     };
 }
 
+// create keybindings for each player's paddle
 function createKeyBindings() {
     // create key bindings for player 1
     player1Keys = {
