@@ -79,13 +79,11 @@ function createBall() {
 
 // create keybindings for each player's paddle
 function createKeyBindings() {
-    // create key bindings for player 1
-    player1Keys = {
+    player2Keys = {
         ArrowRight:false, ArrowLeft:false, ArrowUp:false, ArrowDown: false
     };
 
-    // create key bindings for player 2
-    player2Keys = {
+    player1Keys = {
         KeyD:false, KeyA:false, KeyW:false, KeyS: false
     };    
 }
@@ -123,27 +121,26 @@ function ballReset() {
 
 // update game world for player 1, player 2, and ball
 function move() {
-    // update player 1 (Arrow keys)
-    if(player1Keys.ArrowRight && player1.x < canvas.width/2 - player1.width) {
+
+    if(player1Keys.KeyD && player1.x < canvas.width/2 - player1.width) {
         player1.x += player1.speed;
-    } else if(player1Keys.ArrowLeft && player1.x > 0) {
+    } else if(player1Keys.KeyA && player1.x > 0) {
         player1.x -= player1.speed;
     }
-    if(player1Keys.ArrowUp) {
+    if(player1Keys.KeyW) {
         player1.y -= player1.speed;
-    } else if(player1Keys.ArrowDown) {
+    } else if(player1Keys.KeyS) {
         player1.y += player1.speed;
     }
 
-    // update player 2 (WASD keys)
-    if(player2Keys.KeyD && player2.x < canvas.width - player2.width) {
+    if(player2Keys.ArrowRight && player2.x < canvas.width - player2.width) {
         player2.x += player2.speed;
-    } else if(player2Keys.KeyA && player2.x > canvas.width/2) {
+    } else if(player2Keys.ArrowLeft && player2.x > canvas.width/2) {
         player2.x -= player2.speed;
     }
-    if(player2Keys.KeyW) {
+    if(player2Keys.ArrowUp) {
         player2.y -= player2.speed;
-    } else if(player2Keys.KeyS) {
+    } else if(player2Keys.ArrowDown) {
         player2.y += player2.speed;
     }
 
