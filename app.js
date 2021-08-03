@@ -3,63 +3,76 @@
 // Based on tutorials by Laurence Svekis
 // MIT License
 
-// create reference to canvas context for drawing
-const canvas = document.querySelector('#myCanvas');
-const ctx = canvas.getContext('2d');
+// declar variables
+let canvas;
+let ctx;
+let player1;
+let player2;
+let ballSpeed;
+let ball;
+let player1Keys;
+let player2Keys;
 
+initGame();
 
-// create a reset button to restart the game
-const btn = document.createElement('button');
-const div = document.createElement('div');
-btn.textContent = "Game Reset";
-btn.addEventListener('click', () => {
-    player1.score = 0;
-    player2.score = 0;
-    ballReset();
-    player1.x = 50;
-    player1.y = 50;
-    player2.x = 500;
-    player2.y = 50;
-});
-document.body.append(div);
-div.append(btn);
+function initGame() {
+    // create reference to canvas context for drawing
+    canvas = document.querySelector('#myCanvas');
+    ctx = canvas.getContext('2d');
 
-// create player 1
-const player1 = {
-    x:50, y:50, speed: 5, width: 35, height: 100, score: 0
-};
+    // create a reset button to restart the game
+    const btn = document.createElement('button');
+    const div = document.createElement('div');
+    btn.textContent = "Game Reset";
+    btn.addEventListener('click', () => {
+        player1.score = 0;
+        player2.score = 0;
+        ballReset();
+        player1.x = 50;
+        player1.y = 50;
+        player2.x = 500;
+        player2.y = 50;
+    });
+    document.body.append(div);
+    div.append(btn);
 
-// create player 2
-const player2 = {
-    x:500, y:50, speed: 5, width: 35, height: 100, score: 0
-};
+    // create player 1
+    player1 = {
+        x:50, y:50, speed: 5, width: 35, height: 100, score: 0
+    };
 
-// set ball speed
-let ballSpeed = 3;
+    // create player 2
+    player2 = {
+        x:500, y:50, speed: 5, width: 35, height: 100, score: 0
+    };
 
-// create ball
-const ball = {
-    x: canvas.width / 2, y: canvas.height / 2, 
-    width: 10, height: 10,
-    xs: ballSpeed, ys: -ballSpeed
-};
+    // set ball speed
+    ballSpeed = 3;
 
-// create key bindings for player 1
-const player1Keys = {
-    ArrowRight:false, ArrowLeft:false, ArrowUp:false, ArrowDown: false
-};
+    // create ball
+    ball = {
+        x: canvas.width / 2, y: canvas.height / 2, 
+        width: 10, height: 10,
+        xs: ballSpeed, ys: -ballSpeed
+    };
 
-// create key bindings for player 2
-const player2Keys = {
-    KeyD:false, KeyA:false, KeyW:false, KeyS: false
-};
+    // create key bindings for player 1
+    player1Keys = {
+        ArrowRight:false, ArrowLeft:false, ArrowUp:false, ArrowDown: false
+    };
 
-// start animation
-requestAnimationFrame(draw);
+    // create key bindings for player 2
+    player2Keys = {
+        KeyD:false, KeyA:false, KeyW:false, KeyS: false
+    };
 
-// add event listeners for keys
-document.addEventListener('keydown', keyDown);
-document.addEventListener('keyup', keyUp);
+    // start animation
+    requestAnimationFrame(draw);
+
+    // add event listeners for keys
+    document.addEventListener('keydown', keyDown);
+    document.addEventListener('keyup', keyUp);
+}
 
 // track key down events
 function keyDown(event) {
