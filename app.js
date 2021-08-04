@@ -222,7 +222,7 @@ function handleCollisionWithBallAndPaddle(player) {
     if(hitTestWithBall(ball, player)) {
         ball.xs *= -1;
         let playerOriginY = (player.y + player.height) / 2;
-        let ballOriginY = (ball.y + ball.height) / 2;
+        let ballOriginY = (ball.y + ball.ys + ball.height) / 2;
         if(playerOriginY < ballOriginY) {
             ball.ys = ballSpeed;
         } else {
@@ -236,10 +236,10 @@ function handleCollisionWithBallAndPaddle(player) {
 function hitTestWithBall(ball, paddle) {
 
     let hit = 
-    (ball.x + ball.xs) < (paddle.x + paddle.width) && 
-    (ball.x + ball.xs + ball.width/2) > paddle.x && 
-    (ball.y + ball.ys) < (paddle.y + paddle.height) && 
-    (ball.y + ball.ys + ball.height/2) > paddle.y;
+    (ball.x + ball.xs + ball.width / 2) < (paddle.x + paddle.width) && 
+    (ball.x + ball.xs + ball.width / 2) > paddle.x && 
+    (ball.y + ball.ys + ball.height / 2) < (paddle.y + paddle.height) && 
+    (ball.y + ball.ys + ball.height / 2) > paddle.y;
     
     return hit
 }
