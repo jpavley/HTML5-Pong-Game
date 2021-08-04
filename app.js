@@ -250,8 +250,7 @@ function checkCol(obj1, obj2) {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     move();
-    checkCol(player1, player2);
-
+    
     // draw player 1 paddle
     ctx.fillStyle = 'blue';
     ctx.fillRect(player1.x, player1.y, player1.width, player1.height);
