@@ -206,13 +206,13 @@ function updateScores() {
 function bounceBallOffWalls(leftRight, topBottom) {
     if(leftRight) {
         // bounce ball off of left or right walls
-        if(ball.x < 0 || ball.x > canvas.width) {
+        if(ball.x + ball.xs < 0 || ball.x + ball.xs > canvas.width) {
             ball.xs *= -1;
         }    
     }
     if(topBottom) {
         // bounce ball off of top or bottom walls
-        if(ball.y < 0 || ball.y > canvas.height) {
+        if(ball.y + ball.ys < 0 || ball.y + ball.ys > canvas.height) {
             ball.ys *= -1;
         }
     }
