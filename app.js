@@ -219,7 +219,7 @@ function bounceBallOffWalls(leftRight, topBottom) {
 }
 
 function handleCollisionWithBallAndPaddle(player) {
-    if(checkCol(ball, player)) {
+    if(hitTestWithBall(ball, player)) {
         ball.xs *= -1;
         let playerOriginY = (player.y + player.height) / 2;
         let ballOriginY = (ball.y + ball.height) / 2;
@@ -231,18 +231,16 @@ function handleCollisionWithBallAndPaddle(player) {
     }
 }
 
-// hit test bounds of two objects
-function checkCol(obj1, obj2) {
+// hit test bounds of ball with a paddle
+// returns true if the ball makes contact with a paddle
+function hitTestWithBall(ball, paddle) {
 
-    let hit = obj1.x < (obj2.x + obj2.width) && 
-    (obj1.x + obj1.width) > obj2.x && 
-    obj1.y < (obj2.y + obj2.height) && 
-    (obj1.y + obj1.height) > obj2.y;
+    let hit = 
+    (ball.x + ball.xs) < (paddle.x + paddle.width) && 
+    (ball.x + ball.xs + ball.width/2) > paddle.x && 
+    (ball.y + ball.ys) < (paddle.y + paddle.height) && 
+    (ball.y + ball.ys + ball.height/2) > paddle.y;
     
-    if(hit) {
-        //console.log(hit);
-    }
-
     return hit
 }
 
