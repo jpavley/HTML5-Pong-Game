@@ -270,8 +270,17 @@ function drawPlayerPaddles() {
 }
 
 function drawBall() {
+    // circle ball
+    // ctx.beginPath();
+    // ctx.arc(ball.y, ball.y, ball.width, 0, Math.PI * 2, true);
+    // ctx.closePath();
+    // ctx.fillStyle = 'white';
+    // ctx.fill();
+
+    // square ball
     ctx.fillStyle = 'white';
     ctx.fillRect(ball.x, ball.y, ball.width, ball.height);    
+
 }
 
 function drawScoreboard() {
