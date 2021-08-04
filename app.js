@@ -249,29 +249,38 @@ function checkCol(obj1, obj2) {
 // update canvas based on state of game world
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     move();
-    
+
+    drawPlayerPaddles();
+    drawBall();
+    drawScoreboard();
+
+    // udpate animation
+    requestAnimationFrame(draw);
+}
+
+function drawPlayerPaddles() {
     // draw player 1 paddle
     ctx.fillStyle = 'blue';
-    ctx.fillRect(player1.x, player1.y, player1.width, player1.height);
-
+    ctx.fillRect(player1.x, player1.y, player1.width, player1.height);  
     // draw player 2 paddle
     ctx.fillStyle = 'red';
     ctx.fillRect(player2.x, player2.y, player2.width, player2.height);
+}
 
-    // draw ball
+function drawBall() {
     ctx.fillStyle = 'white';
-    ctx.fillRect(ball.x, ball.y, ball.width, ball.height);
+    ctx.fillRect(ball.x, ball.y, ball.width, ball.height);    
+}
 
-    // draw scoreboard
+function drawScoreboard() {
     let catFace = String.fromCodePoint(0x1F431);
     let dogFace = String.fromCodePoint(0x1F436);
     let output = `${catFace} ${player1.score} vs. ${dogFace} ${player2.score}`;
     ctx.font = 'bold 24px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'green';
-    ctx.fillText(output, 300, 30);
-
-    // udpate animation
-    requestAnimationFrame(draw);
+    ctx.fillText(output, 300, 30);    
 }
+
