@@ -147,6 +147,18 @@ function getRandomDirection() {
 // update game world for player 1, player 2, and ball
 function move() {
 
+    handlePlayer1KeyPresses();
+    handlePlayer2KeyPresses();
+    updateBall();
+    updateScores();
+
+    bounceBallOffWalls(false, true);
+
+    handleCollisionWithBallAndPaddle(player1);
+    handleCollisionWithBallAndPaddle(player2);
+}
+
+function handlePlayer1KeyPresses() {
     if(player1Keys.KeyD && player1.x < canvas.width/2 - player1.width) {
         player1.x += player1.speed;
     } else if(player1Keys.KeyA && player1.x > 0) {
@@ -157,7 +169,9 @@ function move() {
     } else if(player1Keys.KeyS && player1.y < canvas.height - player1.height) {
         player1.y += player1.speed;
     }
+}
 
+function handlePlayer2KeyPresses() {
     if(player2Keys.ArrowRight && player2.x < canvas.width - player2.width) {
         player2.x += player2.speed;
     } else if(player2Keys.ArrowLeft && player2.x > canvas.width/2) {
@@ -168,37 +182,46 @@ function move() {
     } else if(player2Keys.ArrowDown && player2.y < canvas.height - player2.height) {
         player2.y += player2.speed;
     }
+}
 
-    // update ball
+function updateBall() {
     ball.x += ball.xs;
-    ball.y += ball.ys;
+    ball.y += ball.ys;    
+}
 
-    // update score for player 1
-    if(ball.x < 0) {
-        player1.score += 1;
-        ballReset();
+function updateScores() {
+        // update score for player 1
+        if(ball.x < 0) {
+            player1.score += 1;
+            ballReset();
+        }
+    
+        // update score for player 2
+        if(ball.x > canvas.width) {
+            player2.score += 1;
+            ballReset();
+        }    
+}
+
+function bounceBallOffWalls(leftRight, topBottom) {
+    if(leftRight) {
+        // bounce ball off of left or right walls
+        if(ball.x < 0 || ball.x > canvas.width) {
+            ball.xs *= -1;
+        }    
     }
-
-    // update score for player 2
-    if(ball.x > canvas.width) {
-        player2.score += 1;
-        ballReset();
+    if(topBottom) {
+        // bounce ball off of top or bottom walls
+        if(ball.y < 0 || ball.y > canvas.height) {
+            ball.ys *= -1;
+        }
     }
+}
 
-    // detect ball out bounds of canvas and reverse direction if true
-
-    // if(ball.x < 0 || ball.x > canvas.width) {
-    //     ball.xs *= -1;
-    // }
-
-    if(ball.y < 0 || ball.y > canvas.height) {
-        ball.ys *= -1;
-    }
-
-    // detect collision with player 1 paddle
-    if(checkCol(ball, player1)) {
+function handleCollisionWithBallAndPaddle(player) {
+    if(checkCol(ball, player)) {
         ball.xs *= -1;
-        let playerOriginY = (player1.y + player1.height) / 2;
+        let playerOriginY = (player.y + player.height) / 2;
         let ballOriginY = (ball.y + ball.height) / 2;
         if(playerOriginY < ballOriginY) {
             ball.ys = ballSpeed;
@@ -206,18 +229,6 @@ function move() {
             ball.ys = -ballSpeed;
         }
     }
-
-    // detect collision with player 2 paddle
-    if(checkCol(ball, player2)) {
-        ball.xs *= -1;
-        let playerOriginY = (player2.y + player2.height) / 2;
-        let ballOriginY = (ball.y + ball.height) / 2;
-        if(playerOriginY < ballOriginY) {
-            ball.ys = ballSpeed;
-        } else {
-            ball.ys = -ballSpeed;
-        }
-    }    
 }
 
 // hit test bounds of two objects
