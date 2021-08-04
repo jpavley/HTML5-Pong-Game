@@ -270,17 +270,16 @@ function drawPlayerPaddles() {
 }
 
 function drawBall() {
-    // circle ball
-    // ctx.beginPath();
-    // ctx.arc(ball.y, ball.y, ball.width, 0, Math.PI * 2, true);
-    // ctx.closePath();
-    // ctx.fillStyle = 'white';
-    // ctx.fill();
 
-    // square ball
+    let ballCenterX = ball.x + (ball.width / 2);
+    let ballCenterY = ball.y + (ball.height / 2);
+    let ballRadius = ball.width / 2;
+
+    ctx.beginPath();
+    ctx.arc(ballCenterX, ballCenterY, ballRadius, 0, Math.PI * 2, true);
+    ctx.closePath();
     ctx.fillStyle = 'white';
-    ctx.fillRect(ball.x, ball.y, ball.width, ball.height);    
-
+    ctx.fill();
 }
 
 function drawScoreboard() {
