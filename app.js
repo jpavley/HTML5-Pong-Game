@@ -4,22 +4,24 @@
 // MIT License
 
 // declare variables
-let canvas;
-let ctx;
-let player1;
-let player2;
-let ballSpeed;
-let ball;
-let player1Keys;
-let player2Keys;
+let s = {
+    canvas: {},
+    ctx: {},
+    player1: {},
+    player2: {},
+    ballSpeed: {},
+    ball: {},
+    player1Keys: {},
+    player2Keys: {},    
+}
 
 initGame();
 
 // initalize all the game vars
 function initGame() {
     // create reference to canvas context for drawing
-    canvas = document.querySelector('#myCanvas');
-    ctx = canvas.getContext('2d');
+    s.canvas = document.querySelector('#myCanvas');
+    s.ctx = s.canvas.getContext('2d');
 
     createResetButton();
     createPlayers();
@@ -40,13 +42,13 @@ function createResetButton() {
     const div = document.createElement('div');
     btn.textContent = "Game Reset";
     btn.addEventListener('click', () => {
-        player1.score = 0;
-        player2.score = 0;
+        s.player1.score = 0;
+        s.player2.score = 0;
         ballReset();
-        player1.x = 50;
-        player1.y = (canvas.height/2)-50;
-        player2.x = 500;
-        player2.y = (canvas.height/2)-50;
+        s.player1.x = 50;
+        s.player1.y = (s.canvas.height/2)-50;
+        s.player2.x = 500;
+        s.player2.y = (s.canvas.height/2)-50;
     });
     document.body.append(div);
     div.append(btn);    
@@ -55,35 +57,35 @@ function createResetButton() {
 // create player paddles
 function createPlayers() {
     // create player 1
-    player1 = {
-        x:50, y:(canvas.height/2)-50, speed: 6, width: 35, height: 100, score: 0
+    s.player1 = {
+        x:50, y:(s.canvas.height/2)-50, speed: 6, width: 35, height: 100, score: 0
     };
     // create player 2
-    player2 = {
-        x:500, y:(canvas.height/2)-50, speed: 6, width: 35, height: 100, score: 0
+    s.player2 = {
+        x:500, y:(s.canvas.height/2)-50, speed: 6, width: 35, height: 100, score: 0
     };    
 }
 
 // create ball to bounce between paddles
 function createBall() {
     // set ball speed
-    ballSpeed = 3;
+    s.ballSpeed = 3;
 
     // create ball
-    ball = {
-        x: canvas.width / 2, y: canvas.height / 2, 
+    s.ball = {
+        x: s.canvas.width / 2, y: s.canvas.height / 2, 
         width: 10, height: 10,
-        xs: ballSpeed, ys: -ballSpeed
+        xs: s.ballSpeed, ys: -s.ballSpeed
     };
 }
 
 // create keybindings for each player's paddle
 function createKeyBindings() {
-    player2Keys = {
+    s.player2Keys = {
         ArrowRight:false, ArrowLeft:false, ArrowUp:false, ArrowDown: false
     };
 
-    player1Keys = {
+    s.player1Keys = {
         KeyD:false, KeyA:false, KeyW:false, KeyS: false
     };    
 }
@@ -91,30 +93,30 @@ function createKeyBindings() {
 // track key down events
 function keyDown(event) {
 
-    if(event.code in player1Keys) {
-        player1Keys[event.code] = true;
+    if(event.code in s.player1Keys) {
+        s.player1Keys[event.code] = true;
     }
 
-    if(event.code in player2Keys) {
-        player2Keys[event.code] = true;
+    if(event.code in s.player2Keys) {
+        s.player2Keys[event.code] = true;
     }
 }
 
 // track key up events
 function keyUp(event) {
-    if(event.code in player1Keys) {
-        player1Keys[event.code] = false;
+    if(event.code in s.player1Keys) {
+        s.player1Keys[event.code] = false;
     }
 
-    if(event.code in player2Keys) {
-        player2Keys[event.code] = false;
+    if(event.code in s.player2Keys) {
+        s.player2Keys[event.code] = false;
     }
 }
 
 // reset ball when ball goes out of boundsw
 function ballReset() {
-    ball.x = canvas.width / 2;
-    ball.y = canvas.height / 2;
+    s.ball.x = s.canvas.width / 2;
+    s.ball.y = s.canvas.height / 2;
     setRandomBallSpeed();
 }
 
@@ -122,20 +124,20 @@ function setRandomBallSpeed() {
     let direction = getRandomDirection();
     switch(direction) {
         case 0: // up right
-            ball.xs = ballSpeed;
-            ball.ys = -ballSpeed;
+        s.ball.xs = s.ballSpeed;
+        s.ball.ys = -s.ballSpeed;
             break;
         case 1: // down left
-            ball.xs = -ballSpeed;
-            ball.ys = ballSpeed;
+        s.ball.xs = -s.ballSpeed;
+        s.ball.ys = s.ballSpeed;
             break;
         case 2: // down right
-            ball.xs = ballSpeed;
-            ball.ys = ballSpeed;
+        s.ball.xs = s.ballSpeed;
+        s.ball.ys = s.ballSpeed;
             break;    
         case 3: // up left
-            ball.xs = -ballSpeed;
-            ball.ys = -ballSpeed;
+        s.ball.xs = -s.ballSpeed;
+        s.ball.ys = -s.ballSpeed;
             break;    
     }
 }
@@ -154,51 +156,51 @@ function move() {
 
     bounceBallOffWalls(false, true);
 
-    handleCollisionWithBallAndPaddle(player1);
-    handleCollisionWithBallAndPaddle(player2);
+    handleCollisionWithBallAndPaddle(s.player1);
+    handleCollisionWithBallAndPaddle(s.player2);
 }
 
 function handlePlayer1KeyPresses() {
-    if(player1Keys.KeyD && player1.x < canvas.width/2 - player1.width) {
-        player1.x += player1.speed;
-    } else if(player1Keys.KeyA && player1.x > 0) {
-        player1.x -= player1.speed;
+    if(s.player1Keys.KeyD && s.player1.x < s.canvas.width/2 - s.player1.width) {
+        s.player1.x += s.player1.speed;
+    } else if(s.player1Keys.KeyA && s.player1.x > 0) {
+        s.player1.x -= s.player1.speed;
     }
-    if(player1Keys.KeyW && player1.y > 0) {
-        player1.y -= player1.speed;
-    } else if(player1Keys.KeyS && player1.y < canvas.height - player1.height) {
-        player1.y += player1.speed;
+    if(s.player1Keys.KeyW && s.player1.y > 0) {
+        s.player1.y -= s.player1.speed;
+    } else if(s.player1Keys.KeyS && s.player1.y < s.canvas.height - s.player1.height) {
+        s.player1.y += s.player1.speed;
     }
 }
 
 function handlePlayer2KeyPresses() {
-    if(player2Keys.ArrowRight && player2.x < canvas.width - player2.width) {
-        player2.x += player2.speed;
-    } else if(player2Keys.ArrowLeft && player2.x > canvas.width/2) {
-        player2.x -= player2.speed;
+    if(s.player2Keys.ArrowRight && s.player2.x < s.canvas.width - s.player2.width) {
+        s.player2.x += s.player2.speed;
+    } else if(s.player2Keys.ArrowLeft && s.player2.x > s.canvas.width/2) {
+        s.player2.x -= s.player2.speed;
     }
-    if(player2Keys.ArrowUp && player2.y > 0) {
-        player2.y -= player2.speed;
-    } else if(player2Keys.ArrowDown && player2.y < canvas.height - player2.height) {
-        player2.y += player2.speed;
+    if(s.player2Keys.ArrowUp && s.player2.y > 0) {
+        s.player2.y -= s.player2.speed;
+    } else if(s.player2Keys.ArrowDown && s.player2.y < s.canvas.height - s.player2.height) {
+        s.player2.y += s.player2.speed;
     }
 }
 
 function updateBall() {
-    ball.x += ball.xs;
-    ball.y += ball.ys;    
+    s.ball.x += s.ball.xs;
+    s.ball.y += s.ball.ys;    
 }
 
 function updateScores() {
         // update score for player 1
-        if(ball.x < 0) {
-            player1.score += 1;
+        if(s.ball.x < 0) {
+            s.player1.score += 1;
             ballReset();
         }
     
         // update score for player 2
-        if(ball.x > canvas.width) {
-            player2.score += 1;
+        if(s.ball.x > s.canvas.width) {
+            s.player2.score += 1;
             ballReset();
         }    
 }
@@ -206,27 +208,27 @@ function updateScores() {
 function bounceBallOffWalls(leftRight, topBottom) {
     if(leftRight) {
         // bounce ball off of left or right walls
-        if(ball.x + ball.xs < 0 || ball.x + ball.xs > canvas.width) {
-            ball.xs *= -1;
+        if(s.ball.x + s.ball.xs < 0 || s.ball.x + s.ball.xs > s.canvas.width) {
+            s.ball.xs *= -1;
         }    
     }
     if(topBottom) {
         // bounce ball off of top or bottom walls
-        if(ball.y + ball.ys < 0 || ball.y + ball.ys > canvas.height) {
-            ball.ys *= -1;
+        if(s.ball.y + s.ball.ys < 0 || s.ball.y + s.ball.ys > s.canvas.height) {
+            s.ball.ys *= -1;
         }
     }
 }
 
 function handleCollisionWithBallAndPaddle(player) {
-    if(hitTestWithBall(ball, player)) {
-        ball.xs *= -1;
+    if(hitTestWithBall(s.ball, player)) {
+        s.ball.xs *= -1;
         let playerOriginY = (player.y + player.height) / 2;
-        let ballOriginY = (ball.y + ball.ys + ball.height) / 2;
+        let ballOriginY = (s.ball.y + s.ball.ys + s.ball.height) / 2;
         if(playerOriginY < ballOriginY) {
-            ball.ys = ballSpeed;
+            s.ball.ys = s.ballSpeed;
         } else {
-            ball.ys = -ballSpeed;
+            s.ball.ys = -s.ballSpeed;
         }
     }
 }
@@ -246,7 +248,7 @@ function hitTestWithBall(ball, paddle) {
 
 // update canvas based on state of game world
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    s.ctx.clearRect(0, 0, s.canvas.width, s.canvas.height);
 
     move();
 
@@ -260,33 +262,33 @@ function draw() {
 
 function drawPlayerPaddles() {
     // draw player 1 paddle
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(player1.x, player1.y, player1.width, player1.height);  
+    s.ctx.fillStyle = 'blue';
+    s.ctx.fillRect(s.player1.x, s.player1.y, s.player1.width, s.player1.height);  
     // draw player 2 paddle
-    ctx.fillStyle = 'red';
-    ctx.fillRect(player2.x, player2.y, player2.width, player2.height);
+    s.ctx.fillStyle = 'red';
+    s.ctx.fillRect(s.player2.x, s.player2.y, s.player2.width, s.player2.height);
 }
 
 function drawBall() {
 
-    let ballCenterX = ball.x + (ball.width / 2);
-    let ballCenterY = ball.y + (ball.height / 2);
-    let ballRadius = ball.width / 2;
+    let ballCenterX = s.ball.x + (s.ball.width / 2);
+    let ballCenterY = s.ball.y + (s.ball.height / 2);
+    let ballRadius = s.ball.width / 2;
 
-    ctx.beginPath();
-    ctx.arc(ballCenterX, ballCenterY, ballRadius, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.fillStyle = 'white';
-    ctx.fill();
+    s.ctx.beginPath();
+    s.ctx.arc(ballCenterX, ballCenterY, ballRadius, 0, Math.PI * 2, true);
+    s.ctx.closePath();
+    s.ctx.fillStyle = 'white';
+    s.ctx.fill();
 }
 
 function drawScoreboard() {
     let catFace = String.fromCodePoint(0x1F431);
     let dogFace = String.fromCodePoint(0x1F436);
-    let output = `${catFace} ${player1.score} vs. ${dogFace} ${player2.score}`;
-    ctx.font = 'bold 24px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = 'green';
-    ctx.fillText(output, 300, 30);    
+    let output = `${catFace} ${s.player1.score} vs. ${dogFace} ${s.player2.score}`;
+    s.ctx.font = 'bold 24px sans-serif';
+    s.ctx.textAlign = 'center';
+    s.ctx.fillStyle = 'green';
+    s.ctx.fillText(output, 300, 30);    
 }
 
